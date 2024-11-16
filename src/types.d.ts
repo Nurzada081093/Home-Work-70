@@ -12,3 +12,10 @@ export interface IContact {
   photo: string;
   id: string;
 }
+
+export type ContactAPI = Omit<IFormContact, 'id'>
+
+export interface IContactFromAPI {
+  [id: string] : ContactAPI;
+}
+

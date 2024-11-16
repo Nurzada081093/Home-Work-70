@@ -1,8 +1,10 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { IFormContact } from '../../types';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
+import Box from '@mui/joy/Box';
 
 interface Props {
   onSubmitContact: (contact: IFormContact) => void;
@@ -99,15 +101,17 @@ const FormControl: React.FC<Props> = ({onSubmitContact}) => {
           />
         </Grid>
         <Grid size={12}>
-          <Box sx={{textAlign: 'center'}}>
-            <img style={{width: '50%', borderRadius: '10px'}}
+          <Box sx={{border: '1px solid #bdbdbd', borderRadius: '5px', padding: '10px', width: '100%', display: 'flex', flexWrap: 'wrap'}}>
+            <Typography sx={{color: '#616161', fontSize: '18px', marginRight: '15%'}}>Photo preview</Typography>
+            <img style={{width: '200px', borderRadius: '10px'}}
               src={newContact.photo}
               alt={newContact.name}
             />
           </Box>
         </Grid>
-        <Grid size={12}>
-          <Button sx={{width: '100%'}} variant="contained" type="submit">Save</Button>
+        <Grid size={12} sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap'}}>
+          <Button sx={{width: '300px', margin: '10px'}} variant="contained" type="submit">Save</Button>
+          <Button sx={{width: '300px', margin: '10px'}} variant="contained" type="button" to={'/'} component={NavLink}>Back to contacts</Button>
         </Grid>
       </Grid>
     </form>
