@@ -1,11 +1,10 @@
 import './App.css';
+import MyContacts from './Containers/MyContacts/MyContacts.tsx';
 
 const App = () => {
 
   return (
-    <>
-      I'm starting my home work #70! ^_^
-    </>
+    <MyContacts/>
   );
 };
 
