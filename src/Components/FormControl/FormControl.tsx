@@ -1,7 +1,12 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { IFormControl } from '../../types';
+import { IFormContact } from '../../types';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+
+interface Props {
+  onSubmitContact: (contact: IFormContact) => void;
+}
 
 const initialState = {
   name: '',
@@ -10,8 +15,8 @@ const initialState = {
   photo: '',
 };
 
-const FormControl = () => {
-  const [newContact, setNewContact] = useState<IFormControl>(initialState);
+const FormControl: React.FC<Props> = ({onSubmitContact}) => {
+  const [newContact, setNewContact] = useState<IFormContact>(initialState);
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -25,7 +30,13 @@ const FormControl = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(newContact);
+
+    if (newContact.name.trim().length === 0 || newContact.photo.trim().length === 0 || newContact.phone.trim().length === 0 || newContact.email.trim().length === 0) {
+      toast.error('If you want to add a new contact, please fill out all fields!');
+    } else {
+      onSubmitContact({...newContact});
+      setNewContact(initialState);
+    }
   };
 
   return (
