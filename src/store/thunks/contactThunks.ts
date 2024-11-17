@@ -27,3 +27,18 @@ export const getContacts = createAsyncThunk<IContact[], void>(
     });
   }
 );
+
+export const getOneContact = createAsyncThunk<IContact | null, string>(
+  'contact/getOneContact',
+  async (contactId) => {
+    const response = await axiosRequest<IContact | null>(`contacts/${contactId}.json`);
+    return response.data || null;
+  }
+);
+
+export const deleteContact = createAsyncThunk<void, string>(
+  'contact/deleteContact',
+  async (contactId) => {
+    await axiosRequest.delete(`contacts/${contactId}.json`);
+  }
+);

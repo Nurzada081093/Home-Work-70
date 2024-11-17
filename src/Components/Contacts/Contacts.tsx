@@ -9,7 +9,7 @@ interface Props {
 
 const Contacts: React.FC<Props> = ({contacts}) => {
   return (
-    <Box sx={{display: 'flex', marginTop: '40px', justifyContent: 'space-between', flexWrap: 'wrap', marginBottom: '40px'}}>
+    <Box sx={{display: 'flex', marginTop: '40px', justifyContent: 'space-around', flexWrap: 'wrap', marginBottom: '40px'}}>
       {contacts.map((contact) => {
         return (
           <Contact key={contact.id} contact={contact}/>

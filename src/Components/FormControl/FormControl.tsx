@@ -102,7 +102,7 @@ const FormControl: React.FC<Props> = ({onSubmitContact}) => {
         </Grid>
         <Grid size={12}>
           <Box sx={{border: '1px solid #bdbdbd', borderRadius: '5px', padding: '10px', width: '100%', display: 'flex', flexWrap: 'wrap'}}>
-            <Typography sx={{color: '#616161', fontSize: '18px', marginRight: '15%'}}>Photo preview</Typography>
+            <Typography sx={{color: '#616161', fontSize: '17px', marginRight: '15%'}}>Photo preview</Typography>
             <img style={{width: '200px', borderRadius: '10px'}}
               src={newContact.photo}
               alt={newContact.name}
