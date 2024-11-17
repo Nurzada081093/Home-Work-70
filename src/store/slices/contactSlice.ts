@@ -7,7 +7,6 @@ interface InitialContactSlice {
   contacts: IContact[];
   oneContact: IContact | null;
   isLoading: {
-    isLoading: boolean;
     isLoadingCreate: boolean;
     isLoadingGet: boolean;
     isLoadingDelete: boolean;
@@ -21,7 +20,6 @@ const initialState: InitialContactSlice = {
   contacts: [],
   oneContact: null,
   isLoading: {
-    isLoading: false,
     isLoadingCreate: false,
     isLoadingGet: false,
     isLoadingDelete: false,
@@ -33,7 +31,11 @@ const initialState: InitialContactSlice = {
 
 export const selectContacts = (state: RootState) => state.contacts.contacts;
 export const selectOneContact = (state: RootState) => state.contacts.oneContact;
-
+export const selectIsLoading = (state: RootState) => state.contacts.isLoading.isLoadingGet;
+export const selectIsLoadingCreate = (state: RootState) => state.contacts.isLoading.isLoadingCreate;
+export const selectIsLoadingEdit = (state: RootState) => state.contacts.isLoading.isLoadingEdit;
+export const selectIsLoadingGetOneContact = (state: RootState) => state.contacts.isLoading.isLoadingOneContact;
+export const selectIsLoadingDelete = (state: RootState) => state.contacts.isLoading.isLoadingDelete;
 
 export const contactSlice = createSlice({
   name: 'contact',
@@ -58,16 +60,16 @@ export const contactSlice = createSlice({
         state.error = true;
       })
       .addCase(getContacts.pending, (state) => {
-        state.isLoading.isLoading = true;
+        state.isLoading.isLoadingGet = true;
         state.error = false;
       })
       .addCase(getContacts.fulfilled, (state, action: PayloadAction<IContact[]>) => {
-        state.isLoading.isLoading = false;
+        state.isLoading.isLoadingGet = false;
         state.error = false;
         state.contacts = action.payload;
       })
       .addCase(getContacts.rejected, (state) => {
-        state.isLoading.isLoading = false;
+        state.isLoading.isLoadingGet = false;
         state.error = true;
       })
       .addCase(getOneContact.pending, (state) => {

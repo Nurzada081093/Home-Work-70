@@ -10,6 +10,7 @@ const MyContacts = () => {
     <Layout>
       <Routes>
         <Route path="/" element={<Home/>}></Route>
+        <Route path="/contacts" element={<Home/>}></Route>
         <Route path="/contacts/add" element={<ContactForm/>}></Route>
         <Route path="/contacts/:id/edit" element={<ContactForm/>}></Route>
         <Route path="*" element={<Typography variant="h1">Not found</Typography>} ></Route>

@@ -11,6 +11,9 @@ import { TfiEmail } from 'react-icons/tfi';
 import { GrEdit } from 'react-icons/gr';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks.ts';
+import { selectIsLoadingDelete } from '../../store/slices/contactSlice.ts';
+import DeleteButtonSpinner from '../UI/DeleteButtonSpinner/DeleteButtonSpinner.tsx';
 
 interface Props {
   showModal: boolean;
@@ -20,6 +23,7 @@ interface Props {
 }
 
 const ModalWindow: React.FC<Props> = ({showModal, contact, closeModal, deleteTheContact}) => {
+  const deleteLoader = useAppSelector(selectIsLoadingDelete);
   const navigate = useNavigate();
   return (
     <>
@@ -68,13 +72,15 @@ const ModalWindow: React.FC<Props> = ({showModal, contact, closeModal, deleteThe
                   Edit
                 </Button>
                 <Button
+                  disabled={deleteLoader}
                   variant="solid"
                   color="danger"
                   startDecorator={<RiDeleteBin6Fill />}
-                  sx={{width: '100px', marginLeft: '10px'}}
+                  sx={{marginLeft: '10px'}}
                   onClick={deleteTheContact}
                 >
                   Delete
+                  {deleteLoader ? <DeleteButtonSpinner/> : null}
                 </Button>
               </Box>
             </Box>

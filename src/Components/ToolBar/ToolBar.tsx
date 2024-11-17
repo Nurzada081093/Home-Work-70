@@ -3,14 +3,12 @@ import Badge from '@mui/joy/Badge';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Dropdown from '@mui/joy/Dropdown';
-import Input from '@mui/joy/Input';
 import IconButton from '@mui/joy/IconButton';
 import ListDivider from '@mui/joy/ListDivider';
 import ListItemDecorator from '@mui/joy/ListItemDecorator';
 import Menu from '@mui/joy/Menu';
 import MenuButton from '@mui/joy/MenuButton';
 import MenuItem from '@mui/joy/MenuItem';
-import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import Chip from '@mui/joy/Chip';
 import AddIcon from '@mui/icons-material/Add';
@@ -46,7 +44,6 @@ const ToolBar = () => {
           alignItems: 'center',
         },
       ]}>
-
         <IconButton
           variant="soft"
           size="sm"
@@ -86,7 +83,7 @@ const ToolBar = () => {
               }}
             >
               <MenuItem>
-                <NavLink to="/" style={{color: 'white', textDecoration: 'none'}}>
+                <NavLink to="/contacts" style={{color: 'white', textDecoration: 'none'}}>
                   <ListItemDecorator>
                     <BubbleChartIcon sx={{marginRight: '10px'}}/>
                   </ListItemDecorator>
@@ -94,50 +91,29 @@ const ToolBar = () => {
                 </NavLink>
               </MenuItem>
               <ListDivider/>
-              <MenuItem>
-                <NavLink to="/contacts/add" style={{color: 'white', textDecoration: 'none'}}>Add new contact</NavLink>
-                <Chip
-                  variant="outlined"
-                  size="sm"
-                  sx={(theme) => ({
-                    ml: 'auto',
-                    bgcolor: `rgba(${theme.vars.palette[color].mainChannel} / 0.4)`,
-                  })}
-                >
-                  Beta
-                </Chip>
-              </MenuItem>
+              <NavLink to="/contacts/add" style={{color: 'white', textDecoration: 'none'}}>
+                <MenuItem>
+                  Add new contact
+                  <Chip
+                    variant="outlined"
+                    size="sm"
+                    sx={(theme) => ({
+                      ml: 'auto',
+                      bgcolor: `rgba(${theme.vars.palette[color].mainChannel} / 0.4)`,
+                    })}
+                  >
+                    Beta
+                  </Chip>
+                </MenuItem>
+                </NavLink>
             </Menu>
           </Dropdown>
         </Box>
         <Box sx={{display: 'flex', flexShrink: 0, gap: 2}}>
-          <Button to={'/contacts/add'} component={NavLink}
-                  startDecorator={<AddIcon/>}
-                  sx={{display: {xs: 'none', md: 'inline-flex'}}}
-          >
+          <Button to={'/contacts/add'} component={NavLink} startDecorator={<AddIcon/>} sx={{display: {xs: 'none', md: 'inline-flex'}}}>
             Add new contact
           </Button>
-          <Input
-            placeholder="Search"
-            variant="soft"
-            size="sm"
-            endDecorator={
-              <Typography
-                component="span"
-                variant="outlined"
-                level="body-xs"
-                sx={{bgcolor: 'background.surface', mx: 0}}
-              >
-                ⌘K
-              </Typography>
-            }
-            sx={{
-              '--Input-paddingInline': '12px',
-              width: 160,
-              display: {xs: 'none', lg: 'flex'},
-            }}
-          />
-          <Badge badgeContent={2} variant="solid" color="danger">
+          <Badge badgeContent={0} variant="solid" color="danger">
             <IconButton variant="soft" sx={{borderRadius: '50%'}}>
               <NotificationsIcon/>
             </IconButton>

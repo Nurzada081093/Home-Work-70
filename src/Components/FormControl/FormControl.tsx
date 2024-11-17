@@ -5,6 +5,9 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
 import Box from '@mui/joy/Box';
+import { useAppSelector } from '../../app/hooks.ts';
+import { selectIsLoadingCreate, selectIsLoadingEdit } from '../../store/slices/contactSlice.ts';
+import ButtonSpinner from '../UI/ButtonSpinner/ButtonSpinner.tsx';
 
 interface Props {
   onSubmitContact: (contact: IFormContact) => void;
@@ -21,6 +24,8 @@ const initialState = {
 
 const FormControl: React.FC<Props> = ({onSubmitContact, contact = initialState, isEdit}) => {
   const [newContact, setNewContact] = useState<IFormContact>({...contact});
+  const createLoading = useAppSelector(selectIsLoadingCreate);
+  const editLoader = useAppSelector(selectIsLoadingEdit);
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -118,7 +123,9 @@ const FormControl: React.FC<Props> = ({onSubmitContact, contact = initialState, 
           </Box>
         </Grid>
         <Grid size={12} sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap'}}>
-          <Button sx={{width: '300px', margin: '10px'}} variant="contained" type="submit">Save</Button>
+          <Button disabled={createLoading || editLoader} sx={{width: '300px', margin: '10px'}} variant="contained" type="submit">
+            Save
+            {createLoading || editLoader ? <ButtonSpinner/> : null}</Button>
           <Button sx={{width: '300px', margin: '10px'}} variant="contained" type="button" to={'/'} component={NavLink}>Back
             to contacts</Button>
         </Grid>

@@ -5,10 +5,12 @@ import { createContact, editContact, getOneContact } from '../../store/thunks/co
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
-import { resetContact, selectOneContact } from '../../store/slices/contactSlice.ts';
+import { resetContact, selectIsLoadingGetOneContact, selectOneContact } from '../../store/slices/contactSlice.ts';
+import Loader from '../../Components/UI/Loader/Loader.tsx';
 
 const ContactForm = () => {
   const contact = useAppSelector(selectOneContact);
+  const oneContactLoader = useAppSelector(selectIsLoadingGetOneContact);
   const dispatch = useAppDispatch();
   const {id} = useParams();
   const navigate = useNavigate();
@@ -39,7 +41,9 @@ const ContactForm = () => {
 
   return (
     <div>
-      {contact ? <FormControl isEdit onSubmitContact={onSubmitContact} contact={contact}/> : null}
+      {oneContactLoader ? <Loader/> :
+        contact ? <FormControl isEdit onSubmitContact={onSubmitContact} contact={contact}/> : null
+      }
       {!contact ? <FormControl onSubmitContact={onSubmitContact}/> : null}
     </div>
   );
