@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosRequest from '../../axiosRequest.ts';
-import { IContact, IContactFromAPI, IFormContact } from '../../types';
+import { ContactAPI, IContact, IContactFromAPI, IFormContact } from '../../types';
 
 export const createContact = createAsyncThunk<void, IFormContact>(
   'contact/createContact',
@@ -40,5 +40,12 @@ export const deleteContact = createAsyncThunk<void, string>(
   'contact/deleteContact',
   async (contactId) => {
     await axiosRequest.delete(`contacts/${contactId}.json`);
+  }
+);
+
+export const editContact = createAsyncThunk<void, {contactID: string, contact: ContactAPI}>(
+  'contact/editContact',
+  async ({contactID, contact}) =>  {
+    await axiosRequest.put(`contacts/${contactID}.json`, {...contact});
   }
 );

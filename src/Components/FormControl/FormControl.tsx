@@ -8,6 +8,8 @@ import Box from '@mui/joy/Box';
 
 interface Props {
   onSubmitContact: (contact: IFormContact) => void;
+  contact?: IFormContact;
+  isEdit?: boolean;
 }
 
 const initialState = {
@@ -17,8 +19,8 @@ const initialState = {
   photo: '',
 };
 
-const FormControl: React.FC<Props> = ({onSubmitContact}) => {
-  const [newContact, setNewContact] = useState<IFormContact>(initialState);
+const FormControl: React.FC<Props> = ({onSubmitContact, contact = initialState, isEdit}) => {
+  const [newContact, setNewContact] = useState<IFormContact>({...contact});
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -52,8 +54,7 @@ const FormControl: React.FC<Props> = ({onSubmitContact}) => {
       marginTop: '30px'
     }}>
       <Typography variant="h4" sx={{flexGrow: 1, textAlign: 'center', marginBottom: '20px'}}>
-        {/*{postToEdit ? 'Edit ' : 'Add new '} */}
-        Contact
+        {isEdit ? 'Edit ' : 'Add new '} contact
       </Typography>
       <Grid container spacing={2} sx={{mx: 'auto', width: '80%'}}>
         <Grid size={12}>
@@ -101,17 +102,25 @@ const FormControl: React.FC<Props> = ({onSubmitContact}) => {
           />
         </Grid>
         <Grid size={12}>
-          <Box sx={{border: '1px solid #bdbdbd', borderRadius: '5px', padding: '10px', width: '100%', display: 'flex', flexWrap: 'wrap'}}>
+          <Box sx={{
+            border: '1px solid #bdbdbd',
+            borderRadius: '5px',
+            padding: '10px',
+            width: '100%',
+            display: 'flex',
+            flexWrap: 'wrap'
+          }}>
             <Typography sx={{color: '#616161', fontSize: '17px', marginRight: '15%'}}>Photo preview</Typography>
             <img style={{width: '200px', borderRadius: '10px'}}
-              src={newContact.photo}
-              alt={newContact.name}
+                 src={newContact.photo}
+                 alt={newContact.name}
             />
           </Box>
         </Grid>
         <Grid size={12} sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap'}}>
           <Button sx={{width: '300px', margin: '10px'}} variant="contained" type="submit">Save</Button>
-          <Button sx={{width: '300px', margin: '10px'}} variant="contained" type="button" to={'/'} component={NavLink}>Back to contacts</Button>
+          <Button sx={{width: '300px', margin: '10px'}} variant="contained" type="button" to={'/'} component={NavLink}>Back
+            to contacts</Button>
         </Grid>
       </Grid>
     </form>

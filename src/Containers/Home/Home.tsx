@@ -16,8 +16,6 @@ const Home = () => {
     void getAllContacts();
   }, [getAllContacts]);
 
-  console.log(contacts);
-
   return (
     <div>
       <Contacts contacts={contacts}/>

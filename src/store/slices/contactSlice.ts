@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IContact } from '../../types';
-import { createContact, deleteContact, getContacts, getOneContact } from '../thunks/contactThunks.ts';
+import { createContact, deleteContact, editContact, getContacts, getOneContact } from '../thunks/contactThunks.ts';
 import { RootState } from '../../app/store.ts';
 
 interface InitialContactSlice {
   contacts: IContact[];
   oneContact: IContact | null;
   isLoading: {
+    isLoading: boolean;
     isLoadingCreate: boolean;
     isLoadingGet: boolean;
     isLoadingDelete: boolean;
@@ -20,6 +21,7 @@ const initialState: InitialContactSlice = {
   contacts: [],
   oneContact: null,
   isLoading: {
+    isLoading: false,
     isLoadingCreate: false,
     isLoadingGet: false,
     isLoadingDelete: false,
@@ -32,10 +34,15 @@ const initialState: InitialContactSlice = {
 export const selectContacts = (state: RootState) => state.contacts.contacts;
 export const selectOneContact = (state: RootState) => state.contacts.oneContact;
 
+
 export const contactSlice = createSlice({
   name: 'contact',
   initialState,
-  reducers: {},
+  reducers: {
+    resetContact(state) {
+      state.oneContact = null;
+    },
+  },
   extraReducers: (builder => {
     builder
       .addCase(createContact.pending, (state) => {
@@ -51,16 +58,16 @@ export const contactSlice = createSlice({
         state.error = true;
       })
       .addCase(getContacts.pending, (state) => {
-        state.isLoading.isLoadingGet = true;
+        state.isLoading.isLoading = true;
         state.error = false;
       })
       .addCase(getContacts.fulfilled, (state, action: PayloadAction<IContact[]>) => {
-        state.isLoading.isLoadingGet = false;
+        state.isLoading.isLoading = false;
         state.error = false;
         state.contacts = action.payload;
       })
       .addCase(getContacts.rejected, (state) => {
-        state.isLoading.isLoadingGet = false;
+        state.isLoading.isLoading = false;
         state.error = true;
       })
       .addCase(getOneContact.pending, (state) => {
@@ -87,8 +94,22 @@ export const contactSlice = createSlice({
       .addCase(deleteContact.rejected, (state) => {
         state.isLoading.isLoadingDelete = false;
         state.error = true;
+      })
+      .addCase(editContact.pending, (state) => {
+        state.isLoading.isLoadingEdit = true;
+        state.error = false;
+      })
+      .addCase(editContact.fulfilled, (state) => {
+        state.isLoading.isLoadingEdit = false;
+        state.error = false;
+        state.oneContact = null;
+      })
+      .addCase(editContact.rejected, (state) => {
+        state.isLoading.isLoadingEdit = false;
+        state.error = true;
       });
   })
 });
 
 export const contactReducer = contactSlice.reducer;
+export const {resetContact} = contactSlice.actions;

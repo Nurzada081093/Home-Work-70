@@ -54,13 +54,11 @@ const Contact: React.FC<Props> = ({contact}) => {
       </AspectRatio>
       <CardContent>
         <Typography sx={{fontSize: '18px'}} id="card-description" >
-          <Typography><b>Name: </b>{contact.name}</Typography><br/>
-          <Typography><b>Phone: </b>{contact.phone}</Typography>
+          <Typography sx={{marginLeft: '10px'}}><b>{contact.name}</b></Typography><br/>
         </Typography>
       </CardContent>
     </Card>
     </>
-
   );
 };
 
