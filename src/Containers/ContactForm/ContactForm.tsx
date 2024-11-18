@@ -9,7 +9,7 @@ import { resetContact, selectIsLoadingGetOneContact, selectOneContact } from '..
 import Loader from '../../Components/UI/Loader/Loader.tsx';
 
 const ContactForm = () => {
-  const contact = useAppSelector(selectOneContact);
+  const oneContactFromState = useAppSelector(selectOneContact);
   const oneContactLoader = useAppSelector(selectIsLoadingGetOneContact);
   const dispatch = useAppDispatch();
   const {id} = useParams();
@@ -32,7 +32,7 @@ const ContactForm = () => {
     if (id) {
       await dispatch(editContact({contactID: id, contact}));
       navigate('/');
-      toast.success('Dish was edited successfully!');
+      toast.success('This contact was edited successfully!');
     } else {
       await dispatch(createContact({...contact}));
       toast.success('This contact has been successfully added!');
@@ -40,12 +40,12 @@ const ContactForm = () => {
   };
 
   return (
-    <div>
+    <>
       {oneContactLoader ? <Loader/> :
-        contact ? <FormControl isEdit onSubmitContact={onSubmitContact} contact={contact}/> : null
+        oneContactFromState ? <FormControl isEdit onSubmitContact={onSubmitContact} contact={oneContactFromState}/> : null
       }
-      {!contact ? <FormControl onSubmitContact={onSubmitContact}/> : null}
-    </div>
+      {!oneContactFromState ? <FormControl onSubmitContact={onSubmitContact}/> : null}
+    </>
   );
 };
 

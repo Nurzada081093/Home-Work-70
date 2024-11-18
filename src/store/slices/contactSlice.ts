@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IContact } from '../../types';
+import { IContact, IFormContact } from '../../types';
 import { createContact, deleteContact, editContact, getContacts, getOneContact } from '../thunks/contactThunks.ts';
 import { RootState } from '../../app/store.ts';
 
 interface InitialContactSlice {
   contacts: IContact[];
-  oneContact: IContact | null;
+  oneContact: IFormContact | null;
   isLoading: {
     isLoadingCreate: boolean;
     isLoadingGet: boolean;
